@@ -1,4 +1,4 @@
-function [x,Fs,t,tstart_file,tend_file]=read_GOM_data(fullname,tstart,tend)
+function [x,Fs,t,tstart_file,tend_file]=read_HARP_data(fullname,tstart,tend)
 % inputs:
 % fullname: file name and location
 % tstart/tend: start/end times to load in datenum
