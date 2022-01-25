@@ -1,4 +1,4 @@
-function [ker,T,F]=kernel(f0,f1,d,bw,Fs,N,NFFT,Overlap)
+function [ker,T,F]=ker1(f0,f1,d,bw,Fs,N,NFFT,Overlap)
 
 dT=round(N*(1-Overlap))/Fs;
 T=[dT:dT:d];

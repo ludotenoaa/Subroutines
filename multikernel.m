@@ -4,7 +4,7 @@ ker=[];
 
 for I=1:length(t)-1
 
-    ker_tmp=kernel(f(I),f(I+1),t(I+1)-t(I),bw(I),Fs,N,NFFT,Overlap);
+    ker_tmp=ker1(f(I),f(I+1),t(I+1)-t(I),bw(I),Fs,N,NFFT,Overlap);
 
     if I==1
         ker=ker_tmp;
