@@ -34,7 +34,7 @@ t=[0:1:length(x)-1]'/Fs;
 % calibration
 if strcmp(datatype,'SoundTrap')==1
         recorder=str2double(tmp{1});
-        hydrophone=find_ST500_hydrophone(tstart,recorder);
+        hydrophone=find_ST500_hydrophone(fstart,recorder);
         x=ST500_calib(x,recorder,hydrophone);
         calib=1;
 else
@@ -42,7 +42,7 @@ else
 end
 
 % remove mean
-% x=x-mean(x);
+x=x-mean(x);
 
 
 
