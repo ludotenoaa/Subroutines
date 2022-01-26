@@ -1,4 +1,4 @@
-function [x,Fs,t,fstart,fend]=read_acousticdata(fullname,datatype,tstart,tend)
+function [x,Fs,t,fstart,fend,calib]=read_acousticdata(fullname,datatype,tstart,tend)
 
 % extract file name
 tmp=strsplit(fullname,'\');
@@ -31,8 +31,18 @@ end
 % time vector (s)
 t=[0:1:length(x)-1]'/Fs;
 
+% calibration
+if strcmp(datatype,'SoundTrap')==1
+        recorder=str2double(tmp{1});
+        hydrophone=find_ST500_hydrophone(tstart,recorder);
+        x=ST500_calib(x,recorder,hydrophone);
+        calib=1;
+else
+    calib=0;
+end
+
 % remove mean
-x=x-mean(x);
+% x=x-mean(x);
 
 
 
