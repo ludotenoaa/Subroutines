@@ -1,4 +1,4 @@
-function [alpha,Ta]=kerconv(ker,Smag,Ts)
+function [alpha,Ta]=kerconv(ker,S,Ts)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % [alpha,Ta]=kerconv(ker,S,Ts)
 % 
@@ -14,7 +14,10 @@ function [alpha,Ta]=kerconv(ker,Smag,Ts)
 Nker=size(ker,2);
 
 % spectrogram length
-Ntot=size(Smag,2);    
+Ntot=size(S,2);    
+
+% 
+S=log(abs(S));
 
 % slide kernel window across spectrogram
 for k=1:Ntot-Nker
@@ -26,11 +29,5 @@ for k=1:Ntot-Nker
     Ta(k)=Ts(I(1));
 
     % detection function (Eqn. 3 in Mellinger & Clark, 2000)
-    alpha(k)=sum(sum(ker.*Smag(:,I)));
-    % the following step is not clear in the paper
-    % this normalization allows reducing false positives when loud noise is present
-    alpha(k)=alpha(k)/(mean(mean(Smag(:,I)))); 
-    if alpha(k)<0
-        alpha(k)=0;
-    end  
+    alpha(k)=sum(sum(ker.*S(:,I)));
 end
