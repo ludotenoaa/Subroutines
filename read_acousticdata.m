@@ -10,12 +10,19 @@ Fs=I.SampleRate;
 
 % extract file start time from file name based on datatype
 switch datatype
+    
     case 'HARP'
         tmp=strsplit(fname,'_');
-        fstart=datenum([tmp{5},tmp{6}(1:6)],'yymmddHHMMSS');
+        if length(tmp{4})==6
+            fstart=datenum([tmp{4},tmp{5}],'yymmddHHMMSS');
+        else
+            fstart=datenum([tmp{5},tmp{6}(1:6)],'yymmddHHMMSS');
+        end
+
     case 'SoundTrap'
         tmp=strsplit(fname,'.');
         fstart=datenum(tmp{2},'yymmddHHMMSS');
+
 end
 
 % extract file end time
