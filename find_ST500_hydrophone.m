@@ -1,7 +1,7 @@
 function hydrophone=find_ST500_hydrophone(t,recorder)
 
 % 2021 May-Nov deployment
-if t>datenum(2021,5,2,0,0,0) && t<datenum(2021,11,1,0,0,0)
+if t>datenum(2021,5,1,0,0,0) && t<datenum(2021,11,1,0,0,0)
     A=[5625	1182
         5618	1251
         5451	1177
