@@ -23,6 +23,10 @@ switch datatype
         tmp=strsplit(fname,'.');
         fstart=datenum(tmp{2},'yymmddHHMMSS');
 
+    case 'GoMxST'
+        tmp=strsplit(fname,'_');
+        fstart=datenum([tmp{6},tmp{7}],'yyyymmddHHMMSS');
+
 end
 
 % extract file end time
@@ -39,8 +43,12 @@ end
 t=[0:1:length(x)-1]'/Fs;
 
 % calibration
-if strcmp(datatype,'SoundTrap')==1
-        recorder=str2double(tmp{1});
+if strcmp(datatype,'SoundTrap')==1  || strcmp(datatype,'GoMxST')==1
+    if strcmp(datatype,'SoundTrap')==1     
+    recorder=str2double(tmp{1});
+    elseif strcmp(datatype,'GoMxST')==1
+    recorder=str2double(tmp{5}(3:6));
+    end
         hydrophone=find_ST500_hydrophone(fstart,recorder);
         x=ST500_calib(x,recorder,hydrophone);
         calib=1;
