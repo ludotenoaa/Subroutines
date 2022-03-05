@@ -3,11 +3,12 @@ function isob=plot_GoMx_isobaths(z1,z2,dz)
 % load Gulf of Mexico bathymetry (50m)
 GoM_bath=shaperead('C:\Users\ludovic.tenorio\Documents\SEFSC_Laptop\MatlabLibray/GoM_bathymetry/50m/50m.shp');
 
-% isobars
+% isobaths
 vec_iso=-z1:-dz:-z2;
 
 % color scale
-cscale=cmocean('deep',length(vec_iso));
+cscale=cmocean('deep',length(vec_iso)+1);
+cscale=cscale(2:end,:);
 
 % loop over each bathymetry element
 for k=1:length(GoM_bath)
