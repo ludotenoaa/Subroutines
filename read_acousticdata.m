@@ -1,4 +1,6 @@
 function [x,Fs,t,fstart,fend,calib]=read_acousticdata(fullname,datatype,tstart,tend)
+% Ludovic Tenorio 03/07/2022
+% Read specified time window from acoustic data based on datatype (file name format).
 
 % extract file name
 tmp=strsplit(fullname,'\');
@@ -10,7 +12,7 @@ Fs=I.SampleRate;
 
 % extract file start time from file name based on datatype
 switch datatype
-    
+
     case 'HARP'
         tmp=strsplit(fname,'_');
         if length(tmp{4})==6
@@ -43,17 +45,17 @@ end
 t=[0:1:length(x)-1]'/Fs;
 
 % calibration
-if strcmp(datatype,'SoundTrap')==1  || strcmp(datatype,'GoMxST')==1
-    if strcmp(datatype,'SoundTrap')==1     
-    recorder=str2double(tmp{1});
+try
+    if strcmp(datatype,'SoundTrap')==1
+        recorder=str2double(tmp{1});
     elseif strcmp(datatype,'GoMxST')==1
-    recorder=str2double(tmp{5}(3:6));
+        recorder=str2double(tmp{5}(3:6));
     end
-        hydrophone=find_ST500_hydrophone(fstart,recorder);
-        x=ST500_calib(x,recorder,hydrophone);
-        calib=1;
-else
-    calib=0;
+    hydrophone=find_ST500_hydrophone(fstart,recorder);
+    x=ST500_calib(x,recorder,hydrophone);
+    calib=1;
+catch
+    calib=0; % calib=0 means no calibration could be performed
 end
 
 % remove mean
